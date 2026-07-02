@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
 import connectDB from "./config/db.js";
 
 import authRoutes from "./routes/authRoutes.js";
@@ -14,7 +13,7 @@ dotenv.config();
 
 const app = express();
 
-connectDB();
+await connectDB();
 
 app.use(cors());
 app.use(express.json());
@@ -24,5 +23,9 @@ app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/address", addressRoutes);
 app.use("/api/order", orderRoutes);
+
+app.get("/", (req, res) => {
+  res.json({ message: "API is running" });
+});
 
 export default app;
