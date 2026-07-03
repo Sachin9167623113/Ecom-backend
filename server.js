@@ -13,19 +13,24 @@ dotenv.config();
 
 const app = express();
 
+// Connect to MongoDB once
 await connectDB();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/address", addressRoutes);
 app.use("/api/order", orderRoutes);
 
+// Test Route
 app.get("/", (req, res) => {
-  res.json({ message: "API is running" });
+  res.send("Backend API is running...");
 });
 
+// Export app for Vercel
 export default app;
