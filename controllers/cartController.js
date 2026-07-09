@@ -88,10 +88,19 @@ export const getCart = async (req, res) => {
   try {
     const { userId } = req.params;
 
+    console.log("User ID:", userId);
+
     const cart = await Cart.findOne({ userId }).populate("items.productId");
+
+    console.log("Cart:", cart);
 
     res.json(cart);
   } catch (error) {
-    res.status(500).json({ message: "Server Error", error });
+    console.error("GET CART ERROR:", error);
+
+    res.status(500).json({
+      message: "Server Error",
+      error: error.message,
+    });
   }
 };
